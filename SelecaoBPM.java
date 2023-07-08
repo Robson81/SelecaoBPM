@@ -341,17 +341,26 @@ public class SelecaoBPM {
 							System.out.println("Os terrenos são do mesmo tamanho");
 
 					} else if (exer == 4) {
+						char genero;
+						String opcao;
+						
 						System.out.println("\nPESO IDEAL, CONSIDERANDO SEXO:");
 						System.out.println("Informe os dados a baixo: ");
-						System.out.print("Sexo (M p/ mascuino ou F p/ feminino): ");
 						sc.nextLine();
-						String sexo = sc.nextLine().toLowerCase();
+						do {
+							System.out.print("Gênero Sexual: ");
+							 opcao = sc.nextLine().toLowerCase();
+							genero = (opcao.charAt(0) == 'f') ? 'F' : (opcao.charAt(0) == 'm') ? 'M' : 'N';
+
+							if (genero == 'N')
+								System.out.println("\nERRO! Gênero Inválido!");
+						} while (genero != 'F' && genero != 'M');
 						System.out.print("Altura em metros: ");
 						double altura = sc.nextDouble();
 						System.out.print("Peso em kg: ");
 						double peso = sc.nextDouble();
 						System.out.println();
-						System.out.println(selecao.imc(sexo, altura, peso));
+						System.out.println(selecao.imc(opcao, altura, peso));
 						// System.out.println();
 					} else if (exer == 5) {
 						System.out.println("\nCONDIÇÃO DE EXISTÊNCIA E TIPO DO TRIANGULO:");
@@ -1053,7 +1062,7 @@ public class SelecaoBPM {
 						System.out.println("| 3  - PRODUTO DA MATRIZ V2; 	4  - PESQUISANDO VALOR;	              |");
 						System.out.println("| 5  - LISTANDO AS MULHERES;    6  - MAIORES DE 18 V1;	              |");
 						System.out.println("| 7  - MAIORES DE 18 V2;        8  - ORDEM CRESCENTE/DECRESCENTE;     |");
-						System.out.println("| 9 - ORDEM ALFABÉTICA;        10  - MAIS NOVOS PRIMEIRO;             |");
+						System.out.println("| 9  - ORDEM ALFABÉTICA;       10  - MAIS NOVOS PRIMEIRO;             |");
 						System.out.println("| 0  - PARA SAIR		                                      |");
 						System.out.println("|_____________________________________________________________________|");
 						count++;
