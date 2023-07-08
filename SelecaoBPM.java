@@ -1495,15 +1495,16 @@ public class SelecaoBPM {
 
 					if (exer == 1) {
 						String tipo;
+						String player1 = "";
+						String player2 = "";
+						int up = 0;
 
 						do {
 							System.out.println("\nJOGO DA VELHA:\n");
 							sc.nextLine();
-							int count1 = 0;
-							int count2 = 0;
-							int n = 9;
-							int i = 0;
-							int j = 0;
+
+							List<Integer> jogador1 = new ArrayList<>();
+							List<Integer> jogador2 = new ArrayList<>();
 							String movimentoJ1;
 							String movimentoJ2;
 							int resultado = 0;
@@ -1512,8 +1513,6 @@ public class SelecaoBPM {
 							List<String> jogoVelha = new ArrayList<>(
 									Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
 
-							int[] vect1 = { 0, 1, 2, 1, 2, 3, 2, 3, 4 };
-							int[] vect2 = { 0, 1, 2, 1, 2, 3, 2, 3, 4 };
 							int aux = 0;
 
 							System.out.printf("  %s ||   %s  || %s \n", jogoVelha.get(0), jogoVelha.get(1),
@@ -1529,21 +1528,22 @@ public class SelecaoBPM {
 									"Os jogadores deverão informar seus movimentos, de acordo com o número do quadrante exemplificado acima:");
 							System.out.println();
 
-							System.out.print("Informe o nome do 1ª jogador: ");
-							String jogador1 = sc.nextLine().toUpperCase();
-							System.out.print("Informe o nome do 2º jogador: ");
-							String jogador2 = sc.nextLine().toUpperCase();
-
+							if (up == 0) {
+								System.out.print("Informe o nome do 1ª jogador: ");
+								player1 = sc.nextLine().toUpperCase();
+								System.out.print("Informe o nome do 2º jogador: ");
+								player2 = sc.nextLine().toUpperCase();
+							}
 							do {
 								do {
 									System.out.println();
-									System.out.print(jogador1 + ", informe seu movimento: ");
+									System.out.print(player1 + ", informe seu movimento: ");
 									movimentoJ1 = sc.next();
 									position = jogoVelha.indexOf(movimentoJ1);
 									if (position != -1) {
 										jogoVelha.set(position, "X");
-										count1 += vect1[position];
-										i++;
+										jogador1.add(Integer.valueOf(movimentoJ1));
+
 									} else
 										System.out.println("\nERRO: Movimento indisponível\n");
 								} while (position == -1);
@@ -1557,9 +1557,22 @@ public class SelecaoBPM {
 								System.out.println("====||======||====");
 								System.out.printf("  %s ||   %s  || %s \n", jogoVelha.get(6), jogoVelha.get(7),
 										jogoVelha.get(8));
-								if (i >= 3 && count1 == 3 || i >= 3 && count1 == 6 || i >= 3 && count1 == 9) {
+								if (jogador1.size() >= 3 && jogador1.contains(1) && jogador1.contains(2)
+										&& jogador1.contains(3)
+										|| jogador1.contains(4) && jogador1.contains(5) && jogador1.contains(6)
+										|| jogador1.contains(7) && jogador1.contains(8) && jogador1.contains(9)
+										|| jogador1.contains(1) && jogador1.contains(4) && jogador1.contains(7)
+										|| jogador1.contains(2) && jogador1.contains(5) && jogador1.contains(8)
+										|| jogador1.contains(3) && jogador1.contains(6) && jogador1.contains(9)
+										|| jogador1.contains(1) && jogador1.contains(5) && jogador1.contains(9)
+										|| jogador1.contains(7) && jogador1.contains(5) && jogador1.contains(3)) {
 									System.out.println();
-									System.out.println(jogador1 + " VENCEU!!!");
+									System.out.println(player1 + " VENCEU !!!");
+									resultado = -1;
+									aux = 0;
+
+								} else if (jogador1.size() == 5) {
+									System.out.println("\nEMPATE\n");
 									resultado = -1;
 									aux = 0;
 								} else
@@ -1568,13 +1581,13 @@ public class SelecaoBPM {
 								if (aux == -1) {
 									do {
 										System.out.println();
-										System.out.print(jogador2 + ", informe seu movimento: ");
+										System.out.print(player2 + ", informe seu movimento: ");
 										movimentoJ2 = sc.next();
 										position = jogoVelha.indexOf(movimentoJ2);
 										if (position != -1) {
 											jogoVelha.set(position, "O");
-											count2 += vect2[position];
-											j++;
+											jogador2.add(Integer.valueOf(movimentoJ2));
+
 										} else
 											System.out.println("\nERRO: Movimento indisponível\n");
 									} while (position == -1);
@@ -1588,17 +1601,22 @@ public class SelecaoBPM {
 									System.out.println("====||======||====");
 									System.out.printf("  %s ||   %s  || %s \n", jogoVelha.get(6), jogoVelha.get(7),
 											jogoVelha.get(8));
-									if (j >= 3 && count2 == 3 || j >= 3 && count2 == 6 || j >= 3 && count2 == 9) {
+									if (jogador2.size() >= 3 && jogador2.contains(1) && jogador2.contains(2)
+											&& jogador2.contains(3)
+											|| jogador2.contains(4) && jogador2.contains(5) && jogador2.contains(6)
+											|| jogador2.contains(7) && jogador2.contains(8) && jogador2.contains(9)
+											|| jogador2.contains(1) && jogador2.contains(4) && jogador2.contains(7)
+											|| jogador2.contains(2) && jogador2.contains(5) && jogador2.contains(8)
+											|| jogador2.contains(3) && jogador2.contains(6) && jogador2.contains(9)
+											|| jogador2.contains(1) && jogador2.contains(5) && jogador2.contains(9)
+											|| jogador2.contains(7) && jogador2.contains(5) && jogador2.contains(3)) {
 										System.out.println();
-										System.out.println(jogador2 + " VENCEU!!!");
+										System.out.println(player2 + " VENCEU!!!!!!!");
 										resultado = -1;
-										// aux = 0;
-									}
-									if (j == 4) {
-										System.out.println("\nEMPATE\n");
-										resultado = -1;
+
 									}
 								}
+								up++;
 							} while (resultado != -1);
 
 							do {
@@ -1610,11 +1628,11 @@ public class SelecaoBPM {
 									System.out.println("\nERRO!");
 
 							} while (tipo.charAt(0) != 'S' && tipo.charAt(0) != 'N');
-
+							if (tipo.charAt(0) == 'S')
+								System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 						} while (tipo.charAt(0) != 'N');
 
 						System.out.println("\nDESAFIO: JOGO DA VELHA, FOI ENCERRADO\n");
-
 					} else if (exer == 2) {
 
 						System.out.println("\nBUSCA NA INTERNET:");
